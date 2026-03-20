@@ -1,33 +1,38 @@
-'use client';
-import CardContent from "./components/cardContent";
-import Loading from "./components/loading";
-import { useGetPokemonQuery } from "./services/pokemonTCGApi";
+import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
-  const { data: pokemoncards, isLoading, isError } = useGetPokemonQuery();
-  const cards = pokemoncards?.data ?? [];
-
-  if (isLoading)
-    return (
-      <Loading/>
-    );
-  if (isError) return <div>Error occurred while fetching Pokemon data.</div>;
-  
-  console.log(cards);
-
+export default function Page() {
   return (
-    <div className="w-full flex-1 bg-zinc-50 p-4 font-sans dark:bg-black sm:p-6">
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {cards.map((card) => (
-          <CardContent key={card.id} card={card} />
-        ))}
-      </div>
+    <main className="flex flex-1 items-center justify-center bg-background px-4 py-10 text-foreground sm:px-6">
+      <section className="w-full max-w-3xl rounded-2xl border border-black/10 bg-white p-8 text-center dark:border-white/15 dark:bg-zinc-900 sm:p-12">
+        <div className="mx-auto mb-6">
+          <Image
+            src="/snorlax.svg"
+            alt="Snorlax"
+            width={160}
+            height={160}
+            priority
+            className="mx-auto"
+          />
+        </div>
 
-      {cards.length === 0 && (
-        <p className="mt-8 text-center text-sm text-zinc-600 dark:text-zinc-300">
-          No cards found.
+        <h1 className="text-3xl font-extrabold tracking-wide sm:text-5xl">
+          Welcome, Trainer!
+        </h1>
+        <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-700 dark:text-zinc-300 sm:text-lg">
+          Discover Pokémon trading cards, explore card details, and build your
+          own collection journey in one place.
         </p>
-      )}
-    </div>
+
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Link
+            href="/cards"
+            className="inline-flex items-center justify-center rounded-full bg-red-500 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-red-600 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+          >
+            Start Exploring Cards
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }
