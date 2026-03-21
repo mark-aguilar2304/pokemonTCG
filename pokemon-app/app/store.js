@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { pokemonTCGApi } from './services/pokemonTCGApi';
-import { setupListeners } from '@reduxjs/toolkit/query';
+// import { setupListeners } from '@reduxjs/toolkit/query';
 
 export const store = configureStore({
   reducer: {
@@ -10,4 +10,4 @@ export const store = configureStore({
     getDefaultMiddleware().concat(pokemonTCGApi.middleware),
 });
 
-setupListeners(store.dispatch);
+// setupListeners(store.dispatch);

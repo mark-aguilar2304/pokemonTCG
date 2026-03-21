@@ -9,8 +9,8 @@ export default function Page() {
           <Image
             src="/snorlax.svg"
             alt="Snorlax"
-            width={160}
-            height={160}
+            width={200}
+            height={200}
             priority
             className="mx-auto"
           />

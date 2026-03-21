@@ -1,3 +1,5 @@
+
+
 function CardContent({ card }) {
   if (!card) return null;
 
@@ -8,12 +10,12 @@ function CardContent({ card }) {
   const setName = card.set?.name || "Unknown Set";
 
   return (
-    <article className="w-full max-w-xs overflow-hidden rounded-xl border border-black/10 bg-white shadow-sm dark:border-white/15 dark:bg-zinc-900">
+    <article className="w-45 max-w-xs overflow-hidden rounded-xl border border-black/10 bg-white shadow-sm dark:border-white/15 dark:bg-zinc-900">
       {imageUrl ? (
         <img
           src={imageUrl}
           alt={card.name || "Pokemon card"}
-          className="h-72 w-full object-cover"
+          className="h-full w-full object-cover"
           loading="lazy"
         />
       ) : (
@@ -22,7 +24,7 @@ function CardContent({ card }) {
         </div>
       )}
 
-      <div className="space-y-2 p-4">
+      {/* <div className="space-y-2 p-4">
         <h3 className="line-clamp-1 text-lg font-bold text-zinc-900 dark:text-zinc-100">
           {card.name || "Unknown Pokémon"}
         </h3>
@@ -39,7 +41,7 @@ function CardContent({ card }) {
         <p className="text-sm text-zinc-700 dark:text-zinc-300">
           Set: <span className="font-semibold">{setName}</span>
         </p>
-      </div>
+      </div> */}
     </article>
   );
 }
