@@ -7,7 +7,9 @@ export const store = configureStore({
     [pokemonTCGApi.reducerPath]: pokemonTCGApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(pokemonTCGApi.middleware),
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(pokemonTCGApi.middleware),
 });
 
 // setupListeners(store.dispatch);

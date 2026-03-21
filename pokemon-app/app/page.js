@@ -12,7 +12,7 @@ export default function Page() {
             width={200}
             height={200}
             priority
-            className="mx-auto"
+            className="mx-auto h-auto"
           />
         </div>
 
@@ -27,7 +27,7 @@ export default function Page() {
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/cards"
-            className="inline-flex items-center justify-center rounded-full bg-red-500 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-red-600 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+            className="inline-flex items-center justify-center rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-600 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
           >
             Start Exploring Cards
           </Link>
