@@ -44,8 +44,9 @@ export default function Home() {
   return (
     <div className="w-full flex-1 bg-zinc-50 p-4 font-sans dark:bg-black sm:p-6 font-sans">
       <SearchBar 
-      value={search} 
-      setSearch={setSearch}/>
+        value={search} 
+        setSearch={setSearch}
+      />
       <TypeFilter
         options={typeOptions}
         value={selectedType}
@@ -54,8 +55,9 @@ export default function Home() {
       <div className="mx-auto grid w-full sm:w-3/4 lg:w-3/4 justify-items-center max-w-3xl grid-cols-1 gap-6 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 sm:gap-4">
         {filteredCards.map((card) => (
           <CardContent 
-          key={card.id} 
-          card={card} />
+            key={card.id} 
+            card={card}
+          />
         ))}
       </div>
 

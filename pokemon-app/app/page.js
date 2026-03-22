@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Page() {
   return (
     <main className="flex flex-1 items-center justify-center bg-background px-4 py-10 text-foreground sm:px-6">
-      <section className="w-full max-w-3xl rounded-2xl border border-black/10 bg-white p-8 text-center dark:border-white/15 dark:bg-zinc-900 sm:p-12">
+      <section className="w-full max-w-3xl rounded-2xl border border-black/10 bg-teal-50 p-8 text-center dark:border-white/15 dark:bg-teal-900 sm:p-12">
         <div className="mx-auto mb-6">
           <Image
             src="/snorlax.svg"
@@ -27,7 +27,7 @@ export default function Page() {
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/cards"
-            className="inline-flex items-center justify-center rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-600 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+            className="inline-flex items-center justify-center rounded-full bg-teal-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-teal-700 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
           >
             Start Exploring Cards
           </Link>

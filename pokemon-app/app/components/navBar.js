@@ -21,7 +21,7 @@ function NavBar() {
             href="/cards"
             className="text-zinc-600 text-lg transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-zinc-100"
           >
-            Cards
+            Pokédex
           </Link>
         </div>
       </div>
