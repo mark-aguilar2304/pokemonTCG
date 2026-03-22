@@ -19,7 +19,7 @@ function CardContent({ card }) {
           <img
             src={imageUrl}
             alt={card.name || "Pokemon card"}
-            className="h-full w-full object-fit"
+            className="h-full w-full object-cover"
             loading="lazy"
           />
         ) : (

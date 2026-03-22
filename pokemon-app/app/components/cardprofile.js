@@ -9,7 +9,7 @@ function CardProfile({ card }) {
   const attacks = Array.isArray(card.attacks) ? card.attacks : [];
 
   return (
-    <section className="mx-auto w-full max-w-4xl rounded-3xl border border-black/10 bg-white p-4 shadow-sm dark:border-white/15 dark:bg-zinc-900 sm:p-6">
+    <section className="mx-auto w-full max-w-4xl rounded-3xl border border-black/10 bg-zinc-white p-4 shadow-sm dark:border-white/15 dark:bg-zinc-900 sm:p-6">
       <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-red-700 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-200">
         Pokémon Card Profile
       </div>
@@ -30,7 +30,7 @@ function CardProfile({ card }) {
         </div>
 
         <div className="space-y-4">
-          <div className="rounded-2xl border border-yellow-200 bg-yellow-300 p-4 dark:border-yellow-900/70 dark:bg-yellow-950/30">
+          <div className="rounded-2xl border border-yellow-200 bg-yellow-100 p-4 dark:border-yellow-900/70 dark:bg-yellow-800/70">
             <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">{card.name}</h1>
             <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
               {card.supertype || "Pokémon"}

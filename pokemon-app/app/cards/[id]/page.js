@@ -26,16 +26,17 @@ export default function CardDetailsPage({ params }) {
 
   return (
     <div className="w-full flex-1 bg-zinc-50 p-4 font-sans dark:bg-black sm:p-6">
-      <div className="mx-auto mb-4 flex w-full max-w-5xl items-center justify-between gap-3">
-        <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 sm:text-xl capitalize">
-          {cardObject?.name || "Card Details"}
-        </h1>
+      <div className="mx-auto mb-4 flex w-full max-w-4xl items-center justify-between gap-3">
         <Link
           href="/cards"
-          className="rounded-xl border border-black/10 bg-white px-3 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
+          className="rounded-xl border w-1/8 border-black/10 bg-red-500 px-3 py-2 text-sm font-medium text-white transition hover:bg-red-600 dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
         >
           Back
         </Link>
+        <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 sm:text-xl capitalize">
+          {cardObject?.name || "Card Details"}
+        </h1>
+        
       </div>
 
       <CardProfile card={cardObject} />
