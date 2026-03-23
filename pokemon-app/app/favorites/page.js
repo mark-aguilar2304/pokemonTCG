@@ -1,27 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import CardContent from "../components/cardContent";
 import Error from "../components/error";
 import Loading from "../components/loading";
 import { selectFavoriteCardIds } from "../features/favoritesSlice";
-import { useGetPokemonQuery } from "../services/pokemonTCGApi";
+import { useGetPokemonByIdsQuery } from "../services/pokemonTCGApi";
 
 function FavoritesPage() {
-  const { data: pokemoncards, isLoading, isError } = useGetPokemonQuery();
-  const cards = pokemoncards?.data ?? [];
   const favoriteCardIds = useSelector(selectFavoriteCardIds);
 
-  const favoriteCards = useMemo(() => {
-    if (!favoriteCardIds.length) {
-      return [];
-    }
+  const {
+    data: favoriteCardsResponse,
+    isLoading,
+    isError,
+  } = useGetPokemonByIdsQuery(favoriteCardIds, {
+    skip: favoriteCardIds.length === 0,
+  });
 
-    const favoriteIdsSet = new Set(favoriteCardIds);
-    return cards.filter((card) => favoriteIdsSet.has(card.id));
-  }, [cards, favoriteCardIds]);
+  const cards = favoriteCardsResponse?.data ?? [];
+  const favoriteIdsSet = new Set(favoriteCardIds);
+  const favoriteCards = cards.filter((card) => favoriteIdsSet.has(card.id));
 
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
@@ -48,7 +48,7 @@ function FavoritesPage() {
         </div>
       ) : (
         <div className="mx-auto max-w-3xl rounded-2xl border border-black/10 bg-white p-6 text-center text-sm text-zinc-600 dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-300">
-          No favorite cards yet. Open a card and tap the 'Add to Favorites' button to add it.
+          No favorite cards yet. Open a card and tap the &apos;Add to Favorites&apos; button to add it.
         </div>
       )}
     </div>

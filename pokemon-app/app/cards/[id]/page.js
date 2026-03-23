@@ -1,25 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { useState, useEffect, use } from "react";
+import { use } from "react";
 import CardProfile from "../../components/cardprofile";
 import Loading from "../../components/loading";
 import Error from "../../components/error";
-import { useGetPokemonQuery } from "../../services/pokemonTCGApi";
+import { useGetPokemonByIdQuery } from "../../services/pokemonTCGApi";
 
 export default function CardDetailsPage({ params }) {
-  const { data: pokemoncards, isLoading, isError } = useGetPokemonQuery();
-  const cards = pokemoncards?.data ?? [];
   const {id} = use(params)
-  const [cardObject, setCardObject] = useState({});
-  
-  useEffect(() => {
-    if (cards && id){
-        const foundCard = cards.find((card) => card.id === String(id));
-        setCardObject(foundCard || {});
-    }
-
-  }, [id, cards]);
+  const { data: cardResponse, isLoading, isError } = useGetPokemonByIdQuery(id, {
+    skip: !id,
+  });
+  const cardObject = cardResponse?.data ?? {};
 
   if (isLoading) return <Loading />;
   if (isError) return <Error />;

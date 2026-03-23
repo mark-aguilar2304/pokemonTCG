@@ -1,106 +1,121 @@
 'use client';
+
 import { useEffect, useMemo, useState } from "react";
 import CardContent from "../components/cardContent";
 import Loading from "../components/loading";
 import Error from "../components/error";
-import { useGetPokemonQuery } from "../services/pokemonTCGApi";
+import { useGetCardTypesQuery, useGetPokemonQuery } from "../services/pokemonTCGApi";
 import SearchBar from "../components/searchbar";
 import TypeFilter from "../components/typefilter";
 
 export default function Home() {
-  const { data: pokemoncards, isLoading, isError } = useGetPokemonQuery();
-  const cards = pokemoncards?.data ?? [];
+  const pageSize = 24;
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedType, setSelectedType] = useState("all");
-  const [startIndex, setStartIndex] = useState(0);
-  const [numberPerPage, setNumberPerPage] = useState(12);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const nextPage = () =>{
-    setStartIndex(prev=>prev+12);
-    setNumberPerPage(prev=>prev+12);
-  }
+  const {
+    data: pokemoncards,
+    isLoading,
+    isFetching,
+    isError,
+  } = useGetPokemonQuery({
+    page: currentPage,
+    pageSize,
+    search: debouncedSearch,
+    type: selectedType,
+  });
 
-  const prevPage = () =>{
-    setStartIndex(prev=>prev-12);
-    setNumberPerPage(prev=>prev-12);
-  }
-  
+  const {
+    data: cardTypesResponse,
+    isLoading: isTypesLoading,
+    isError: isTypesError,
+  } = useGetCardTypesQuery();
+
   useEffect(() => {
-    // console.log(startIndex, numberPerPage);
-  },[startIndex, numberPerPage])
+    const timeoutId = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [search]);
+
+  const cards = pokemoncards?.data ?? [];
+  const totalCount = pokemoncards?.totalCount ?? 0;
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+
+  const handleSearchChange = (value) => {
+    setSearch(value);
+    setCurrentPage(1);
+  };
+
+  const handleTypeChange = (value) => {
+    setSelectedType(value);
+    setCurrentPage(1);
+  };
 
   const typeOptions = useMemo(() => {
-    const typeSet = new Set(
-      cards.flatMap((card) => (Array.isArray(card.types) ? card.types : []))
-    );
-    return Array.from(typeSet).sort((a, b) => a.localeCompare(b));
-  }, [cards]);
+    if (!Array.isArray(cardTypesResponse?.data)) {
+      return [];
+    }
 
-  const filteredCards = useMemo(() => {
-    const normalizedSearch = search.trim().toLowerCase();
+    return [...cardTypesResponse.data].sort((a, b) => a.localeCompare(b));
+  }, [cardTypesResponse]);
 
-    return cards.filter((card) => {
-      const matchesSearch = card.name
-        .toLowerCase()
-        .includes(normalizedSearch);
+  const hasResults = cards.length > 0;
+  const hasSearchOrFilter = debouncedSearch.trim().length > 0 || selectedType !== "all";
 
-      if (selectedType === "all") {
-        return matchesSearch;
-      }
-
-      const cardTypes = Array.isArray(card.types) ? card.types : [];
-      const matchesType = cardTypes.includes(selectedType);
-      return matchesSearch && matchesType;
-    });
-  }, [cards, search, selectedType]);
-
-  useEffect(() => {
-    setStartIndex(0);
-    setNumberPerPage(12);
-  }, [search, selectedType]);
-
-  if (isLoading) return <Loading/>;
-  if (isError) return <Error />;
+  if (isLoading) return <Loading />;
+  if (isError || isTypesError) return <Error />;
+  if (isTypesLoading && typeOptions.length === 0) return <Loading />;
 
   return (
     <div className="w-full flex-1 bg-teal-50 p-4 font-sans dark:bg-black sm:p-6 font-sans">
-      <SearchBar 
-        value={search} 
-        setSearch={setSearch}
-      />
+      <SearchBar value={search} setSearch={handleSearchChange} />
       <TypeFilter
         options={typeOptions}
         value={selectedType}
-        onChange={setSelectedType}
+        onChange={handleTypeChange}
       />
+
       <div className="mx-auto mb-4 flex w-full md:w-3/4 max-w-3xl items-center justify-between gap-3 py-3">
         <button
-          onClick={()=>{prevPage()}}
-          disabled={startIndex <= 0}
-          className="rounded-xl border md:w-1/6 border-black/10 bg-teal-600 px-3 py-2 text-sm font-medium text-white transition hover:cursor-pointer hover:bg-teal-700 dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage <= 1}
+          className="rounded-xl border md:w-1/6 border-black/10 bg-teal-600 px-3 py-2 text-sm font-medium text-white transition hover:cursor-pointer hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
         >
           Previous
         </button>
+
+        <span className="text-sm text-zinc-700 dark:text-zinc-300">
+          {hasResults ? `Page ${currentPage} of ${totalPages}` : "Page 0 of 0"}
+        </span>
+
         <button
-          onClick={()=>{nextPage()}}
-          disabled={numberPerPage >= filteredCards.length}
-          className="rounded-xl border w-20 md:w-1/6 border-black/10 bg-teal-600 px-3 py-2 text-sm font-medium text-white transition hover:cursor-pointer hover:bg-teal-700 dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={currentPage >= totalPages || !hasResults}
+          className="rounded-xl border w-20 md:w-1/6 border-black/10 bg-teal-600 px-3 py-2 text-sm font-medium text-white transition hover:cursor-pointer hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
         >
           Next
         </button>
       </div>
+
+      {isFetching && (
+        <p className="mx-auto mb-2 w-full md:w-3/4 max-w-3xl text-right text-xs text-zinc-600 dark:text-zinc-300">
+          Updating cards...
+        </p>
+      )}
+
       <div className="mx-auto grid w-full sm:w-3/4 lg:w-3/4 justify-items-center max-w-3xl grid-cols-1 gap-6 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 sm:gap-4">
-        {filteredCards.slice(startIndex, numberPerPage).map((card) => (
-          <CardContent 
-            key={card.id} 
-            card={card}
-          />
+        {cards.map((card) => (
+          <CardContent key={card.id} card={card} />
         ))}
       </div>
 
-      {filteredCards.length === 0 && (
+      {!hasResults && (
         <p className="mt-8 text-center text-sm text-zinc-600 dark:text-zinc-300">
-          No cards found.
+          {hasSearchOrFilter ? "No cards found." : "No cards available."}
         </p>
       )}
     </div>
