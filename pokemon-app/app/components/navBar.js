@@ -24,7 +24,7 @@ function NavBar() {
         <button
           type="button"
           onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="rounded-lg px-3 py-1 text-xl font-semibold text-zinc-700 transition hover:bg-zinc-100 dark:border-white/15 dark:text-zinc-200 dark:hover:bg-zinc-900 sm:hidden"
+          className="rounded-lg px-3 py-1 text-xl font-semibold text-white transition hover:bg-zinc-100 dark:border-white/15 dark:text-zinc-200 dark:hover:bg-zinc-900 sm:hidden"
           aria-label="Toggle navigation menu"
           aria-expanded={isMenuOpen}
           aria-controls="mobile-nav-menu"
