@@ -20,8 +20,8 @@ export default function Page() {
           Welcome, Trainer!
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-700 dark:text-zinc-300 sm:text-lg">
-          Discover Pokémon trading cards, explore card details, and build your
-          own collection journey in one place.
+          Discover Pokémon trading cards, explore card details, and add your
+          favorites in one place.
         </p>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

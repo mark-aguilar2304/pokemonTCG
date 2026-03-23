@@ -11,7 +11,7 @@ function CardContent({ card }) {
   return (
     <Link
       href={`/cards/${cardId}`}
-      className="block w-45 max-w-xs overflow-hidden rounded-xl border border-black/10 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 dark:border-white/15 dark:bg-zinc-900"
+      className="block w-45 max-w-xs overflow-hidden rounded-xl border-5 border-teal-600 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 dark:border-white/15 dark:bg-zinc-900"
       aria-label={`View details for ${card.name || "Pokemon card"}`}
     >
       <article>

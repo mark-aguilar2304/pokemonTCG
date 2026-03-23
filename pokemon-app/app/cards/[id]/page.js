@@ -25,15 +25,15 @@ export default function CardDetailsPage({ params }) {
   if (isError) return <Error />;
 
   return (
-    <div className="w-full flex-1 bg-zinc-50 p-4 font-sans dark:bg-black sm:p-6">
+    <div className="w-full flex-1 bg-teal-50 p-4 font-sans dark:bg-black sm:p-6">
       <div className="mx-auto mb-4 flex w-full max-w-4xl items-center justify-between gap-3">
-        <Link
-          href="/cards"
-          className="rounded-xl border w-1/8 border-black/10 bg-red-500 px-3 py-2 text-sm font-medium text-white transition hover:bg-red-600 dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
+        <button
+          onClick={() => window.history.back()}
+          className="rounded-xl border md:w-1/6 border-black/10 bg-teal-600 px-3 py-2 text-sm font-medium text-white hover:cursor-pointer transition hover:bg-teal-700 dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
         >
           Back
-        </Link>
-        <h1 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 sm:text-xl capitalize">
+        </button>
+        <h1 className="text-lg font-bold text-teal-600 dark:text-zinc-100 sm:text-xl capitalize">
           {cardObject?.name || "Card Details"}
         </h1>
         

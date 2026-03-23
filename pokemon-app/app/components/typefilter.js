@@ -11,7 +11,7 @@ function TypeFilter(props) {
       </label>
       <select
         id="type-filter"
-        className="h-10 w-full md:w-1/4 rounded-xl border border-black/10 bg-white px-3 text-sm text-zinc-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200 dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-blue-300 dark:focus:ring-blue-900/50"
+        className="h-10 w-full md:w-1/4 rounded-xl border border-black/10 bg-teal-600 px-3 text-sm text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-200 dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-blue-300 dark:focus:ring-blue-900/50"
         value={props.value}
         onChange={(e) => props.onChange(e.target.value)}
         aria-label="Filter Pokémon cards by type"

@@ -4,7 +4,7 @@ function SearchBar(props) {
 
     return (
         <form
-            className="mx-auto mb-6 flex w-full md:w-3/4 max-w-3xl items-center gap-2 rounded-2xl border border-black/10 bg-white p-2 shadow-sm dark:border-white/15 dark:bg-zinc-900"
+            className="mx-auto mb-6 flex w-full md:w-3/4 max-w-3xl items-center gap-2 rounded-2xl border border-black/10 bg-teal-600 p-2 shadow-sm dark:border-white/15 dark:bg-zinc-900"
             role="search"
             id="search-form"
             aria-label="Search Pokémon cards"
